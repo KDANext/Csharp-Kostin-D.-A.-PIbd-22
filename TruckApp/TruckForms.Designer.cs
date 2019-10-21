@@ -34,6 +34,7 @@
             this.btnUp = new System.Windows.Forms.Button();
             this.btnRight = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.btnCreateTruck = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,11 +109,22 @@
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
             // 
+            // btnCreateTruck
+            // 
+            this.btnCreateTruck.Location = new System.Drawing.Point(133, 12);
+            this.btnCreateTruck.Name = "btnCreateTruck";
+            this.btnCreateTruck.Size = new System.Drawing.Size(115, 23);
+            this.btnCreateTruck.TabIndex = 7;
+            this.btnCreateTruck.Text = "Create Truck";
+            this.btnCreateTruck.UseVisualStyleBackColor = true;
+            this.btnCreateTruck.Click += new System.EventHandler(this.btnCreateTruck_Click);
+            // 
             // TruckForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 461);
+            this.Controls.Add(this.btnCreateTruck);
             this.Controls.Add(this.btnDown);
             this.Controls.Add(this.btnLeft);
             this.Controls.Add(this.btnUp);
@@ -133,6 +145,7 @@
         private System.Windows.Forms.Button btnUp;
         private System.Windows.Forms.Button btnLeft;
         private System.Windows.Forms.Button btnDown;
+        private System.Windows.Forms.Button btnCreateTruck;
     }
 }
 

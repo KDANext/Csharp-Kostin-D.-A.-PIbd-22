@@ -12,7 +12,7 @@ namespace TruckApp
 {
     public partial class TruckForms : Form
     {
-        FuelTruck fuelTruck;
+        private ITransport Truck;
         public TruckForms()
         {
             InitializeComponent();
@@ -22,14 +22,14 @@ namespace TruckApp
         {
             Bitmap bmp = new Bitmap(pictureBox.Width, pictureBox.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            fuelTruck.drawTruck(gr);
+            Truck.DrawTransport(gr);
             pictureBox.Image = bmp;
         }
         private void btnCreateFuelTruck_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            fuelTruck = new FuelTruck(100, rnd.Next(2, 5), 1000, Color.White, Color.Red, Color.White, Color.Black);
-            fuelTruck.setPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBox.Width, pictureBox.Height);
+            Truck = new FuelTruck(100, rnd.Next(2, 5), 1000, "fuel", 1000, true, Color.White, Color.White, Color.Black, Color.Red);
+            Truck.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBox.Width, pictureBox.Height);
             Draw();
         }
 
@@ -40,18 +40,27 @@ namespace TruckApp
             switch (name)
             {
                 case "btnUp":
-                    fuelTruck.moveTruck(Direction.Up);
+                    Truck.MoveTransport(Direction.Up);
                     break;
                 case "btnDown":
-                    fuelTruck.moveTruck(Direction.Down);
+                    Truck.MoveTransport(Direction.Down);
                     break;
                 case "btnLeft":
-                    fuelTruck.moveTruck(Direction.Left);
+                    Truck.MoveTransport(Direction.Left);
                     break;
                 case "btnRight":
-                    fuelTruck.moveTruck(Direction.Right);
+                    Truck.MoveTransport(Direction.Right);
                     break;
             }
+            Draw();
+
+        }
+
+        private void btnCreateTruck_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            Truck = new Truck(100, rnd.Next(2, 5), 1000, false, Color.White, Color.BlueViolet, Color.Black);
+            Truck.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBox.Width, pictureBox.Height);
             Draw();
         }
     }
