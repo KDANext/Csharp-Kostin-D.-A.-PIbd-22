@@ -37,6 +37,7 @@
             this.btnPick = new System.Windows.Forms.Button();
             this.tbTruckТumber = new System.Windows.Forms.MaskedTextBox();
             this.InfLable1 = new System.Windows.Forms.Label();
+            this.listBoxLevels = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbGarages)).BeginInit();
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPickUpTruck)).BeginInit();
@@ -53,7 +54,7 @@
             // btnTruckInGarage
             // 
             this.btnTruckInGarage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTruckInGarage.Location = new System.Drawing.Point(768, 12);
+            this.btnTruckInGarage.Location = new System.Drawing.Point(768, 136);
             this.btnTruckInGarage.Name = "btnTruckInGarage";
             this.btnTruckInGarage.Size = new System.Drawing.Size(110, 36);
             this.btnTruckInGarage.TabIndex = 1;
@@ -64,7 +65,7 @@
             // btnFuelTruckInGarage
             // 
             this.btnFuelTruckInGarage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFuelTruckInGarage.Location = new System.Drawing.Point(768, 55);
+            this.btnFuelTruckInGarage.Location = new System.Drawing.Point(768, 178);
             this.btnFuelTruckInGarage.Name = "btnFuelTruckInGarage";
             this.btnFuelTruckInGarage.Size = new System.Drawing.Size(110, 40);
             this.btnFuelTruckInGarage.TabIndex = 2;
@@ -124,11 +125,21 @@
             this.InfLable1.TabIndex = 0;
             this.InfLable1.Text = "A place:";
             // 
+            // listBoxLevels
+            // 
+            this.listBoxLevels.FormattingEnabled = true;
+            this.listBoxLevels.Location = new System.Drawing.Point(768, 1);
+            this.listBoxLevels.Name = "listBoxLevels";
+            this.listBoxLevels.Size = new System.Drawing.Size(110, 121);
+            this.listBoxLevels.TabIndex = 4;
+            this.listBoxLevels.SelectedIndexChanged += new System.EventHandler(this.listBoxLevels_SelectedIndexChanged);
+            // 
             // FormGarages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 461);
+            this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.btnFuelTruckInGarage);
             this.Controls.Add(this.btnTruckInGarage);
@@ -154,5 +165,6 @@
         private System.Windows.Forms.MaskedTextBox tbTruckТumber;
         private System.Windows.Forms.PictureBox pbPickUpTruck;
         private System.Windows.Forms.Button btnPick;
+        private System.Windows.Forms.ListBox listBoxLevels;
     }
 }

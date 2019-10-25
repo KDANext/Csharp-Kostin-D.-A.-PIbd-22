@@ -56,6 +56,7 @@
     <Compile Include="FuelTruck.cs" />
     <Compile Include="Garages.cs" />
     <Compile Include="ITransport.cs" />
+    <Compile Include="MultiLevelGarages.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="TruckForms.cs">
       <SubType>Form</SubType>
