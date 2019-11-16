@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 namespace TruckApp
 {
+    public delegate void truckDelegate(ITransport transport);
+
     static class Program
     {
         /// <summary>

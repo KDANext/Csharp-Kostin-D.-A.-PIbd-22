@@ -13,6 +13,7 @@ namespace TruckApp
     public partial class FormGarages : Form
     {
         MultiLevelGarages garages;
+        formTruckConfig form;
         /// <summary>
         /// Количество уровней-парковок
         /// </summary>
@@ -109,6 +110,29 @@ namespace TruckApp
         private void listBoxLevels_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
+        }
+
+        private void AddTransport(ITransport transport)
+        {
+            if (transport != null && listBoxLevels.SelectedIndex > -1)
+            {
+                int place = garages[listBoxLevels.SelectedIndex] + transport;
+                if (place > -1)
+                {
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Машину не удалось поставить");
+                }
+            }
+        }
+
+        private void btnNewTransport_Click(object sender, EventArgs e)
+        {
+            form = new formTruckConfig();
+            form.AddEvent(AddTransport);
+            form.Show();
         }
     }
 }
