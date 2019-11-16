@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TruckApp
 {
-    interface ITransport
+    public interface ITransport
     {
         /// <summary>
         /// Установка позиции автомобиля
@@ -27,5 +27,6 @@ namespace TruckApp
         /// </summary>
         /// <param name="g"></param>
         void DrawTransport(Graphics g);
+        void SetMainColor(Color color);
     }
 }

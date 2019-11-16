@@ -56,8 +56,12 @@ namespace TruckApp
             g.FillRectangle(brush, startX + 35, startY + 3, 28 - 16, 8 - 3);
             g.FillRectangle(brush, startX + 17, startY + 1, 27 - 17, 3 - 1);
             g.FillRectangle(brush, startX + 36, startY + 1, 27 - 17, 3 - 1);
-
             base.DrawTransport(g);
+        }
+
+        public void SetTankColor(Color color)
+        {
+            tankColor = color;
         }
     }
 }
