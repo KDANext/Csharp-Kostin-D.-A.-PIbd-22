@@ -118,5 +118,28 @@ namespace TruckApp
                     break;
             }
         }
+        public Truck(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 6)
+            {
+                maxSpeed = Convert.ToInt32(strs[0]);
+                weight = Convert.ToInt32(strs[1]);
+                bodyColor = Color.FromName(strs[2]);
+                drivesColor = Color.FromName(strs[3]);
+                flasher = Convert.ToBoolean(strs[4]);
+                frameColor = Color.FromName(strs[5]);
+            }
+        }
+
+        public override string ToString()
+        {
+            return maxSpeed + ";"
+                + weight + ";"
+                + bodyColor.Name + ";"
+                + drivesColor.Name + ";"
+                + flasher +";"
+                + frameColor.Name ;
+        }
     }
 }

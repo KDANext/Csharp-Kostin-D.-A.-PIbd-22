@@ -140,7 +140,7 @@
             // 
             // Color3
             // 
-            this.Color3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.Color3.BackColor = System.Drawing.Color.Coral;
             this.Color3.Location = new System.Drawing.Point(22, 84);
             this.Color3.Name = "Color3";
             this.Color3.Size = new System.Drawing.Size(50, 50);
@@ -150,7 +150,7 @@
             // 
             // Color4
             // 
-            this.Color4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.Color4.BackColor = System.Drawing.Color.Cyan;
             this.Color4.Location = new System.Drawing.Point(78, 84);
             this.Color4.Name = "Color4";
             this.Color4.Size = new System.Drawing.Size(50, 50);
@@ -255,7 +255,7 @@
             this.Controls.Add(this.panelTruck);
             this.Controls.Add(this.groupBox1);
             this.Name = "formTruckConfig";
-            this.Text = "FormTruckConfig";
+            this.Text = " ";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbExampleTruck)).EndInit();
             this.panelTruck.ResumeLayout(false);
