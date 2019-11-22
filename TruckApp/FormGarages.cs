@@ -141,13 +141,14 @@ namespace TruckApp
             {
                 if (garages.SaveData(saveFileDialog.FileName))
                 {
-                   // MessageBox.Show("Saving successfully", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   MessageBox.Show("Saving successfully", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                   // MessageBox.Show("Not preserved", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   MessageBox.Show("Not preserved", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            }
+
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -156,14 +157,15 @@ namespace TruckApp
             {
                 if (garages.LoadData(openFileDialog.FileName))
                 {
-                   // MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                   // MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Draw();
-            }
+            }
+
         }
     }
 }
