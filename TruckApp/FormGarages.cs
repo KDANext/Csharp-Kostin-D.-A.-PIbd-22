@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NLog;
 
 namespace TruckApp
 {
@@ -18,9 +19,11 @@ namespace TruckApp
         /// Количество уровней-парковок
         /// </summary>
         private const int countLevel = 5;
+        private Logger logger;
         public FormGarages()
         {
             InitializeComponent();
+            logger = LogManager.GetCurrentClassLogger();
             garages = new MultiLevelGarages(countLevel, pbGarages.Width,pbGarages.Height);
             //заполнение listBox
             for (int i = 0; i < countLevel; i++)
@@ -52,7 +55,7 @@ namespace TruckApp
                     int place = garages[listBoxLevels.SelectedIndex] + truck;
                     if (place == -1)
                     {
-                        MessageBox.Show("Нет свободных мест", "Ошибка",
+                        MessageBox.Show("No free places", "Mistake",
                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     Draw();
@@ -73,7 +76,7 @@ namespace TruckApp
                         int place = garages[listBoxLevels.SelectedIndex] + truck;
                         if (place == -1)
                         {
-                            MessageBox.Show("Нет свободных мест", "Ошибка",
+                            MessageBox.Show("No free places", "Mistake",
                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         Draw();
@@ -88,22 +91,35 @@ namespace TruckApp
             {
                 if (tbTruckТumber.Text != "")
                 {
-                    var truck = garages[listBoxLevels.SelectedIndex] -
-                   Convert.ToInt32(tbTruckТumber.Text);
-                    if (truck != null)
+                    try
                     {
-                        Bitmap bmp = new Bitmap(pbGarages.Width,pbGarages.Height);
-                        Graphics gr = Graphics.FromImage(bmp);
-                        truck.SetPosition(5, 5, pbGarages.Width,pbGarages.Height);
-                        truck.DrawTransport(gr);
-                        pbPickUpTruck.Image = bmp;
-                    }
-                    else
+                        var truck = garages[listBoxLevels.SelectedIndex] -
+                       Convert.ToInt32(tbTruckТumber.Text);
+                        if (truck != null)
+                        {                     
+                            Bitmap bmp = new Bitmap(pbGarages.Width,pbGarages.Height);
+                            Graphics gr = Graphics.FromImage(bmp);
+                            truck.SetPosition(5, 5, pbGarages.Width,pbGarages.Height);
+                            truck.DrawTransport(gr);
+                            pbPickUpTruck.Image = bmp;
+                        }
+                        else
+                        {
+                            Bitmap bmp = new Bitmap(pbPickUpTruck.Width,pbPickUpTruck.Height);
+                            pbPickUpTruck.Image = bmp;
+                        }
+                        logger.Info("Vehicle seized " + truck.ToString() + " from place " + tbTruckТumber.Text);
+                        Draw();
+                    } catch (GaragesNotFoundException ex)
                     {
-                        Bitmap bmp = new Bitmap(pbPickUpTruck.Width,pbPickUpTruck.Height);
-                        pbPickUpTruck.Image = bmp;
+                        MessageBox.Show(ex.Message
+                            , "Not found"
+                            , MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                        Bitmap bmp = new Bitmap(pbPickUpTruck.Width, pbPickUpTruck.Height); pbPickUpTruck.Image = bmp;
+                    } catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Unknown error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    Draw();
                 }
             }
         }
@@ -116,14 +132,19 @@ namespace TruckApp
         {
             if (transport != null && listBoxLevels.SelectedIndex > -1)
             {
-                int place = garages[listBoxLevels.SelectedIndex] + transport;
-                if (place > -1)
+                try
                 {
+                    int place = garages[listBoxLevels.SelectedIndex] + transport;
+                    logger.Info("Added car " + transport.ToString() + " in place " + place);
                     Draw();
                 }
-                else
-                {
-                    MessageBox.Show("no place");
+                catch (GaragesOverflowException ex) 
+                { 
+                    MessageBox.Show(ex.Message, "Overflow", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                }
+                catch (Exception ex) 
+                { 
+                    MessageBox.Show(ex.Message, "Unknown error", MessageBoxButtons.OK, MessageBoxIcon.Error); 
                 }
             }
         }
@@ -139,31 +160,37 @@ namespace TruckApp
         {
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (garages.SaveData(saveFileDialog.FileName))
+                try
                 {
-                   // MessageBox.Show("Saving successfully", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    garages.SaveData(saveFileDialog.FileName);
+                    MessageBox.Show("Saving was successful", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
+                catch (Exception ex)
                 {
-                   // MessageBox.Show("Not preserved", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Unknown error while saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            }
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (garages.LoadData(openFileDialog.FileName))
+                try
                 {
-                   // MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    garages.LoadData(openFileDialog.FileName);
+                    MessageBox.Show("Uploaded", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Loaded from file " + openFileDialog.FileName);
                 }
-                else
+                catch (GaragesOccupiedPlaceException ex)
                 {
-                   // MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Place taken", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                catch (Exception ex)
+                { MessageBox.Show(ex.Message, "Unknown error while saving", MessageBoxButtons.OK, MessageBoxIcon.Error); }
                 Draw();
-            }
+            }
+
         }
     }
 }

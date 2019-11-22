@@ -57,7 +57,7 @@ namespace TruckApp
         {
             if (p._places.Count == p._maxCount)
             {
-                return -1;
+                throw new GaragesOverflowException();
             }
             for (int i = 0; i < p._maxCount; i++)
             {
@@ -85,9 +85,9 @@ namespace TruckApp
             {
                 T car = p._places[index];
                 p._places.Remove(index);
-                return car;
+                return car;             
             }
-            return null;
+            throw new GaragesNotFoundException(index);
         }
         /// <summary>
         /// Метод проверки заполнености парковочного места (ячейки массива)
@@ -138,7 +138,7 @@ namespace TruckApp
                 {
                     return _places[ind];
                 }
-                return null;
+                throw new GaragesNotFoundException(ind);
             }
             set
             {
@@ -147,8 +147,13 @@ namespace TruckApp
                     _places.Add(ind, value);
                     _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5
                     * _placeSizeHeight + 15, PictureWidth, PictureHeight);
+                    return;
+                } 
+                else
+                {
+                throw new GaragesOccupiedPlaceException(ind);
                 }
             }
-        }
+        }
     }
 }
