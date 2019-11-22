@@ -48,6 +48,23 @@ namespace TruckApp
             this.frameColor = frameColor;
         }
 
+        public FuelTruck(string info) : base(info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 9)
+            {
+                maxSpeed = Convert.ToInt32(strs[0]);
+                weight = Convert.ToInt32(strs[1]);
+                bodyColor = Color.FromName(strs[2]);
+                drivesColor = Color.FromName(strs[3]);
+                flasher = Convert.ToBoolean(strs[4]);
+                frameColor = Color.FromName(strs[5]);
+                typeLiquid = strs[6];
+                countLiquid = Convert.ToSingle(strs[7]);
+                tankColor = Color.FromName(strs[8]);
+            }
+        }
+
         public override void DrawTransport(Graphics g)
         {
             Brush brush = new SolidBrush(tankColor);
@@ -62,6 +79,13 @@ namespace TruckApp
         public void SetTankColor(Color color)
         {
             tankColor = color;
+        }
+        public override string ToString()
+        {
+            return base.ToString() + ";"
+                + typeLiquid + ";"
+                + countLiquid + ";"
+                + tankColor.Name;
         }
     }
 }

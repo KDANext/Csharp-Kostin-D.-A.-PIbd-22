@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.pbGarages = new System.Windows.Forms.PictureBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.pbPickUpTruck = new System.Windows.Forms.PictureBox();
             this.btnPick = new System.Windows.Forms.Button();
@@ -37,17 +36,25 @@
             this.InfLable1 = new System.Windows.Forms.Label();
             this.listBoxLevels = new System.Windows.Forms.ListBox();
             this.btnNewTransport = new System.Windows.Forms.Button();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pbGarages)).BeginInit();
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPickUpTruck)).BeginInit();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbGarages
             // 
-            this.pbGarages.Location = new System.Drawing.Point(0, 1);
+            this.pbGarages.Location = new System.Drawing.Point(0, 28);
             this.pbGarages.Margin = new System.Windows.Forms.Padding(4);
             this.pbGarages.Name = "pbGarages";
-            this.pbGarages.Size = new System.Drawing.Size(1016, 566);
+            this.pbGarages.Size = new System.Drawing.Size(1016, 539);
             this.pbGarages.TabIndex = 0;
             this.pbGarages.TabStop = false;
             // 
@@ -113,10 +120,10 @@
             // 
             this.listBoxLevels.FormattingEnabled = true;
             this.listBoxLevels.ItemHeight = 16;
-            this.listBoxLevels.Location = new System.Drawing.Point(1024, 1);
+            this.listBoxLevels.Location = new System.Drawing.Point(1024, 33);
             this.listBoxLevels.Margin = new System.Windows.Forms.Padding(4);
             this.listBoxLevels.Name = "listBoxLevels";
-            this.listBoxLevels.Size = new System.Drawing.Size(145, 148);
+            this.listBoxLevels.Size = new System.Drawing.Size(145, 116);
             this.listBoxLevels.TabIndex = 4;
             this.listBoxLevels.SelectedIndexChanged += new System.EventHandler(this.listBoxLevels_SelectedIndexChanged);
             // 
@@ -130,6 +137,49 @@
             this.btnNewTransport.UseVisualStyleBackColor = true;
             this.btnNewTransport.Click += new System.EventHandler(this.btnNewTransport_Click);
             // 
+            // menuStrip
+            // 
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(1179, 28);
+            this.menuStrip.TabIndex = 6;
+            this.menuStrip.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.loadToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "txt file | *.txt";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.Filter = "txt file | *.txt";
+            // 
             // FormGarages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -139,6 +189,8 @@
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.pbGarages);
+            this.Controls.Add(this.menuStrip);
+            this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormGarages";
             this.Text = "FormGarages";
@@ -146,14 +198,16 @@
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPickUpTruck)).EndInit();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox pbGarages;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.Label InfLable1;
         private System.Windows.Forms.MaskedTextBox tbTruckТumber;
@@ -161,5 +215,12 @@
         private System.Windows.Forms.Button btnPick;
         private System.Windows.Forms.ListBox listBoxLevels;
         private System.Windows.Forms.Button btnNewTransport;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

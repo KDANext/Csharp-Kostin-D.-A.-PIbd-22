@@ -123,7 +123,7 @@ namespace TruckApp
                 }
                 else
                 {
-                    MessageBox.Show("Машину не удалось поставить");
+                    MessageBox.Show("no place");
                 }
             }
         }
@@ -133,6 +133,39 @@ namespace TruckApp
             form = new formTruckConfig();
             form.AddEvent(AddTransport);
             form.Show();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (garages.SaveData(saveFileDialog.FileName))
+                {
+                   MessageBox.Show("Saving successfully", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                   MessageBox.Show("Not preserved", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (garages.LoadData(openFileDialog.FileName))
+                {
+                   MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                   MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                Draw();
+            }
+
         }
     }
 }
