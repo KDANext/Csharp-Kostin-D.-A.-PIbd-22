@@ -76,8 +76,7 @@ namespace TruckApp
                         int place = garages[listBoxLevels.SelectedIndex] + truck;
                         if (place == -1)
                         {
-                            MessageBox.Show("No free places", "Mistake",
-                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("No free places", "Mistake", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         Draw();
                     }
@@ -108,16 +107,18 @@ namespace TruckApp
                             Bitmap bmp = new Bitmap(pbPickUpTruck.Width,pbPickUpTruck.Height);
                             pbPickUpTruck.Image = bmp;
                         }
-                        logger.Info("Vehicle seized " + truck.ToString() + " from place " + tbTruckТumber.Text);
+                        logger.Info("Vehicle seized " + truck.ToString() + " from place " + tbTruckТumber.Text);                      
                         Draw();
                     } catch (GaragesNotFoundException ex)
                     {
+                        logger.Error("Not fount transport");
                         MessageBox.Show(ex.Message
                             , "Not found"
                             , MessageBoxButtons.OK, MessageBoxIcon.Error); 
                         Bitmap bmp = new Bitmap(pbPickUpTruck.Width, pbPickUpTruck.Height); pbPickUpTruck.Image = bmp;
                     } catch (Exception ex)
                     {
+                        logger.Error("Unknown error");
                         MessageBox.Show(ex.Message, "Unknown error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -139,11 +140,13 @@ namespace TruckApp
                     Draw();
                 }
                 catch (GaragesOverflowException ex) 
-                { 
+                {
+                    logger.Error("Garages overflow");
                     MessageBox.Show(ex.Message, "Overflow", MessageBoxButtons.OK, MessageBoxIcon.Error); 
                 }
                 catch (Exception ex) 
-                { 
+                {
+                    logger.Error("Unknown error");
                     MessageBox.Show(ex.Message, "Unknown error", MessageBoxButtons.OK, MessageBoxIcon.Error); 
                 }
             }
@@ -167,6 +170,7 @@ namespace TruckApp
                 }
                 catch (Exception ex)
                 {
+                    logger.Error("Unknown error while saving");
                     MessageBox.Show(ex.Message, "Unknown error while saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -184,10 +188,14 @@ namespace TruckApp
                 }
                 catch (GaragesOccupiedPlaceException ex)
                 {
+                    logger.Error("Garages occupied place");
                     MessageBox.Show(ex.Message, "Place taken", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
-                { MessageBox.Show(ex.Message, "Unknown error while saving", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                {
+                    logger.Error("Unknown error while upload");
+                    MessageBox.Show(ex.Message, "Unknown error while upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 Draw();
             }
 
