@@ -71,6 +71,9 @@ namespace TruckApp
                 {
                     //Начинаем уровень
                     sw.WriteLine("Level");
+                    int index = 0;
+                    
+
                     for (int i = 0; i < countPlaces; i++)
                     {
                         var transport = level[i];
@@ -113,7 +116,7 @@ namespace TruckApp
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException();
             }
             int level=-1;
             using (StreamReader fs = new StreamReader(filename))
@@ -123,13 +126,12 @@ namespace TruckApp
                 {
                     if (garagesStages != null)
                     {
-
                         garagesStages.Clear();
                     }
                     garagesStages = new List<Garages<ITransport>>();
                 } else
                 {
-                    return false;
+                    throw new Exception("Invalid file format");
                 }
 
                 while (!fs.EndOfStream)
