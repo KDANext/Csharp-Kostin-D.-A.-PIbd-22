@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TruckApp
 {
-    class Truck : Vehicle
+    class Truck : Vehicle,IComparable<Truck>,IEquatable<Truck>
     {
         protected const int truckWidth = 90;
         protected const int truckHeight = 50;
@@ -140,6 +140,77 @@ namespace TruckApp
                 + drivesColor.Name + ";"
                 + flasher +";"
                 + frameColor.Name ;
+        }
+
+        public bool Equals(Truck other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (maxSpeed != other.maxSpeed)
+            {
+                return false;
+            }
+            if (weight != other.weight)
+            {
+                return false;
+            }
+            if (bodyColor != other.bodyColor)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public int CompareTo(Truck other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            if (maxSpeed != other.maxSpeed)
+            {
+                return maxSpeed.CompareTo(other.maxSpeed);
+            }
+            if (weight != other.weight)
+            {
+                return weight.CompareTo(other.weight);
+            }
+            if (bodyColor != other.bodyColor)
+            {
+                bodyColor.Name.CompareTo(other.bodyColor.Name);
+            }
+            if (flasher != other.flasher)
+            {
+                flasher.CompareTo(other.flasher);
+            }
+            return 0;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Truck carObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(carObj);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace TruckApp
 {
-    class Garages<T> where T:class, ITransport
+    class Garages<T> : IEnumerator<T>, IEnumerable<T>, IComparable<Garages<T>>
+        where T : class, ITransport
     {
         /// <summary>
         /// Массив объектов, которые храним
@@ -17,6 +19,7 @@ namespace TruckApp
         /// Максимальное количество мест на парковке
         /// </summary>
         private int _maxCount;
+        private int _currentIndex = -1;
         /// <summary>
         /// Ширина окна отрисовки
         /// </summary>
@@ -25,6 +28,7 @@ namespace TruckApp
         /// Высота окна отрисовки
         /// </summary>
         private int PictureHeight { get; set; }
+
         /// <summary>
         /// Размер парковочного места (ширина)
         /// </summary>
@@ -59,6 +63,10 @@ namespace TruckApp
             {
                 throw new GaragesOverflowException();
             }
+            if (p._places.ContainsValue(car))
+            {
+                throw new GaragesAlreadyHaveException();
+            }
             for (int i = 0; i < p._maxCount; i++)
             {
                 if (p.CheckFreePlace(i))
@@ -85,7 +93,7 @@ namespace TruckApp
             {
                 T car = p._places[index];
                 p._places.Remove(index);
-                return car;             
+                return car;
             }
             throw new GaragesNotFoundException(index);
         }
@@ -130,6 +138,102 @@ namespace TruckApp
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth, 400);
             }
         }
+
+        public int GetKey
+        {
+            get
+            {
+                return _places.Keys.ToList()[_currentIndex];
+            }
+        }
+
+        public T Current
+        {
+            get
+            {
+                return _places[_places.Keys.ToList()[_currentIndex]];
+            }
+        }
+        /// <summary>
+        /// Метод интерфейса IEnumerator для получения текущего элемента
+        /// </summary>
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        public void Dispose()
+        {
+            _places.Clear();
+        }
+
+        public bool MoveNext()
+        {
+            if (_currentIndex + 1 >= _places.Count)
+            {
+                Reset();
+                return false;
+            }
+            _currentIndex++;
+            return true;
+        }
+
+
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int CompareTo(Garages<T> other)
+        {
+            if (_places.Count > other._places.Count)
+            {
+                return -1;
+            }
+            else if (_places.Count < other._places.Count)
+            {
+                return 1;
+            }
+            else if (_places.Count > 0)
+            {
+                var thisKeys = _places.Keys.ToList();
+                var otherKeys = other._places.Keys.ToList();
+                for (int i = 0; i < _places.Count; ++i)
+                {
+                    if (_places[thisKeys[i]] is Truck && other._places[thisKeys[i]] is FuelTruck)
+                    {
+                        return 1;
+                    }
+                    if (_places[thisKeys[i]] is FuelTruck && other._places[thisKeys[i]] is Truck)
+                    {
+                        return -1;
+                    }
+                    if (_places[thisKeys[i]] is Truck && other._places[thisKeys[i]] is Truck)
+                    {
+                        return (_places[thisKeys[i]] is Truck).CompareTo(other._places[thisKeys[i]] is Truck);
+                    }
+                    if (_places[thisKeys[i]] is FuelTruck && other._places[thisKeys[i]] is FuelTruck)
+                    {
+                        return (_places[thisKeys[i]] is FuelTruck).CompareTo(other._places[thisKeys[i]] is FuelTruck);
+                    }
+                }
+            }
+            return 0;
+        }
+
         public T this[int ind]
         {
             get
@@ -148,10 +252,10 @@ namespace TruckApp
                     _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5
                     * _placeSizeHeight + 15, PictureWidth, PictureHeight);
                     return;
-                } 
+                }
                 else
                 {
-                throw new GaragesOccupiedPlaceException(ind);
+                    throw new GaragesOccupiedPlaceException(ind);
                 }
             }
         }
