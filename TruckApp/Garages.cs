@@ -66,7 +66,8 @@ namespace TruckApp
             if (p._places.ContainsValue(car))
             {
                 throw new GaragesAlreadyHaveException();
-            }
+            }
+
             for (int i = 0; i < p._maxCount; i++)
             {
                 if (p.CheckFreePlace(i))
@@ -180,8 +181,6 @@ namespace TruckApp
             _currentIndex++;
             return true;
         }
-
-
         public void Reset()
         {
             _currentIndex = -1;
