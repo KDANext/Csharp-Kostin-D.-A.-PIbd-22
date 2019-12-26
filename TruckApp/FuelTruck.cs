@@ -25,8 +25,6 @@ namespace TruckApp
                         Color drivesColor,
                         Color frameColor,
                         Color tankColor
-
-
                         ) : base(
                          maxSpeed,
                          countWheels,
@@ -137,7 +135,8 @@ namespace TruckApp
             {
                 return tankColor.Name.CompareTo(other.tankColor.Name);
             }
-            return 0;
+            return 0;
+
         }
 
         public override bool Equals(Object obj)
@@ -162,6 +161,7 @@ namespace TruckApp
         public override int GetHashCode()
         {
             return base.GetHashCode();
-        }
+        }
+
     }
 }
