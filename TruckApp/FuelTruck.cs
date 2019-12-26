@@ -136,9 +136,8 @@ namespace TruckApp
                 return tankColor.Name.CompareTo(other.tankColor.Name);
             }
             return 0;
-
         }
-
+        
         public override bool Equals(Object obj)
         {
             if (obj == null)
@@ -162,6 +161,5 @@ namespace TruckApp
         {
             return base.GetHashCode();
         }
-
     }
 }
