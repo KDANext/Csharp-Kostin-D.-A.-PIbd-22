@@ -144,6 +144,10 @@ namespace TruckApp
                     logger.Error("Garages overflow");
                     MessageBox.Show(ex.Message, "Overflow", MessageBoxButtons.OK, MessageBoxIcon.Error); 
                 }
+                catch (GaragesAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Dubling", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
                 catch (Exception ex) 
                 {
                     logger.Error("Unknown error");
@@ -199,6 +203,13 @@ namespace TruckApp
                 Draw();
             }
 
+        }
+
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            garages.Sort();
+            Draw();
+            logger.Info("Sort");
         }
     }
 }

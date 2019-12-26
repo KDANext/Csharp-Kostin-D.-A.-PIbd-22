@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="FuelTruck.cs" />
     <Compile Include="Garages.cs" />
+    <Compile Include="GaragesAlreadyHaveException.cs" />
     <Compile Include="GaragesNotFoundException.cs" />
     <Compile Include="GaragesOccupiedPlaceException.cs" />
     <Compile Include="GaragesOverflowException.cs" />

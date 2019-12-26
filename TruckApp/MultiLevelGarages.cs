@@ -71,28 +71,21 @@ namespace TruckApp
                 {
                     //Начинаем уровень
                     sw.WriteLine("Level");
-                    int index = 0;
-                    
-
-                    for (int i = 0; i < countPlaces; i++)
+                    foreach(ITransport transport in level)
                     {
-                        var transport = level[i];
-                        if (transport != null)
+                        //Записываем тип мшаины
+                        if (transport.GetType().Name == "Truck")
                         {
-                            //если место не пустое
-                            //Записываем тип мшаины
-                            if (transport.GetType().Name == "Truck")
-                            {
-                                sw.Write(i + ":Truck:");
-                            }
-                            if (transport.GetType().Name == "FuelTruck")
-                            {
-                                sw.Write(i + ":FuelTruck:");
-                            }
-                            //Записываемые параметры
-                            sw.WriteLine(transport);
+                            sw.Write(":Truck:");
                         }
+                        if (transport.GetType().Name == "FuelTruck")
+                        {
+                            sw.Write(":FuelTruck:");
+                        }
+                        //Записываемые параметры
+                        sw.WriteLine(transport+"");
                     }
+                    
                 }
             }
             return true;
@@ -157,6 +150,10 @@ namespace TruckApp
                 }
             }
             return true;
+        }
+        public void Sort()
+        {
+            garagesStages.Sort();
         }
     }
 }

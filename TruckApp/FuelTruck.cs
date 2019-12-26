@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TruckApp
 {
-    class FuelTruck : Truck
+    class FuelTruck : Truck, IEquatable<FuelTruck>, IComparable<FuelTruck>
     {
 
         public string typeLiquid { private set; get; }
@@ -25,8 +25,6 @@ namespace TruckApp
                         Color drivesColor,
                         Color frameColor,
                         Color tankColor
-
-
                         ) : base(
                          maxSpeed,
                          countWheels,
@@ -86,6 +84,82 @@ namespace TruckApp
                 + typeLiquid + ";"
                 + countLiquid + ";"
                 + tankColor.Name;
+        }
+
+        public bool Equals(FuelTruck other)
+        {
+            var res = (this as Truck).Equals(other as Truck);
+            if (!res)
+            {
+                return res;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (tankColor != other.tankColor)
+            {
+                return false;
+            }
+            if (typeLiquid != other.typeLiquid)
+            {
+                return false;
+            }
+            if (countLiquid != other.countLiquid)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public int CompareTo(FuelTruck other)
+        {
+            var res = (this is Truck).CompareTo(other is Truck);
+            if (res != 0)
+            {
+                return res;
+            }
+            if (tankColor != other.tankColor)
+            {
+                tankColor.Name.CompareTo(other.tankColor.Name);
+            }
+            if (typeLiquid != other.typeLiquid)
+            {
+                return typeLiquid.CompareTo(other.typeLiquid);
+            }
+            if (countLiquid != other.countLiquid)
+            {
+                return countLiquid.CompareTo(other.countLiquid);
+            }
+            if ( tankColor!= other.tankColor)
+            {
+                return tankColor.Name.CompareTo(other.tankColor.Name);
+            }
+            return 0;
+        }
+        
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is FuelTruck carObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(carObj);
+            }
+        }
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
